@@ -5,3 +5,29 @@
 body {
   background: $c-gray;
 }
+
+.min,
+.max {
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  border: 1px solid;
+  position: absolute;
+}
+
+.min {
+  background-color: green;
+}
+
+.max {
+  background-color: red;
+}
+
+.ranger {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.ranger_value {
+  margin-top: 40px;
+}
