@@ -13,35 +13,33 @@ document.addEventListener('mousedown', function(ev) {
   ev.target.style.position = 'absolute';
   ev.target.style.zIndex = 2;
 
-  const minimum = min.style.left;
-  const maximum = max.style.left;
-
   moveAt(ev.pageX);
 
   function moveAt(pageX) {
-    let x = pageX;
-
-    if (ev.target === min) {
-      if (parseInt(ev.target.style.left) > parseInt(maximum) - 30) {
-        x = parseInt(maximum) - 35 + 'px';
-      }
-    }
-
-    if (ev.target === max) {
-      if (parseInt(ev.target.style.left) < parseInt(minimum) + 35) {
-        x = parseInt(minimum) + 35 + 'px';
-      }
-    }
-
-    ev.target.style.left = x - 20 + 'px';
+    ev.target.style.left = pageX - 20 + 'px';
 
     (ev.target.className === 'max')
       ? maxValue.textContent = pageX
       : minValue.textContent = pageX;
   }
 
+  if (parseInt(maxValue.textContent) <= parseInt(min.style.left) + 20) {
+    maxValue.textContent = 'aaa';
+  }
+
   function onMouseMove(ev2) {
-    moveAt(ev2.pageX);
+    let x = ev2.pageX;
+    const minimum = min.style.left;
+    const maximum = max.style.left;
+
+    if (ev2.target === min
+      && parseInt(ev2.target.style.left) >= (parseInt(maximum))) {
+      x = parseInt(maximum);
+    } else if (ev2.target === max
+      && parseInt(ev2.target.style.left) <= parseInt(minimum)) {
+      x = parseInt(minimum);
+    }
+    moveAt(x);
   }
 
   document.addEventListener('mousemove', onMouseMove);
