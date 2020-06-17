@@ -8,9 +8,11 @@ const maxInput = document.querySelector('.max_input');
 const minInput = document.querySelector('.min_input');
 let maxInputValue;
 let minInputValue;
-
 let min = parseInt(window.getComputedStyle(minSlider, null).left);
 let max = parseInt(window.getComputedStyle(maxSlider, null).left);
+
+maxInput.value = max;
+minInput.value = min;
 
 minSlider.getElementsByClassName.position = 'absolute';
 maxSlider.getElementsByClassName.position = 'absolute';
