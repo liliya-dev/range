@@ -1,51 +1,55 @@
 /* eslint-disable no-console */
 'use strict';
 
-const min = document.querySelector('.min');
-const max = document.querySelector('.max');
-const minValue = document.querySelector('.min_value');
-const maxValue = document.querySelector('.max_value');
+const minSlider = document.querySelector('.min');
+const maxSlider = document.querySelector('.max');
+let min = parseInt(window.getComputedStyle(minSlider, null).left);
+let max = parseInt(window.getComputedStyle(maxSlider, null).left);
 
-max.style.left = 170 + 'px';
-min.style.left = 20 + 'px';
+minSlider.getElementsByClassName.position = 'absolute';
+maxSlider.getElementsByClassName.position = 'absolute';
 
-document.addEventListener('mousedown', function(ev) {
-  ev.target.style.position = 'absolute';
-  ev.target.style.zIndex = 2;
-
-  moveAt(ev.pageX);
-
-  function moveAt(pageX) {
-    ev.target.style.left = pageX - 20 + 'px';
-
-    (ev.target.className === 'max')
-      ? maxValue.textContent = pageX
-      : minValue.textContent = pageX;
+minSlider.addEventListener('mousedown', function(ev) {
+  if (ev.target !== minSlider && ev.target !== maxSlider) {
+    return;
   }
 
-  if (parseInt(maxValue.textContent) <= parseInt(min.style.left) + 20) {
-    maxValue.textContent = 'aaa';
-  }
+  const toMove = function(move) {
+    let coordinatesX = move.clientX - ev.target.offsetWidth / 2;
 
-  function onMouseMove(ev2) {
-    let x = ev2.pageX;
-    const minimum = min.style.left;
-    const maximum = max.style.left;
-
-    if (ev2.target === min
-      && parseInt(ev2.target.style.left) >= (parseInt(maximum))) {
-      x = parseInt(maximum);
-    } else if (ev2.target === max
-      && parseInt(ev2.target.style.left) <= parseInt(minimum)) {
-      x = parseInt(minimum);
+    if (coordinatesX > max) {
+      coordinatesX = max;
     }
-    moveAt(x);
+    ev.target.style.left = coordinatesX + 'px';
+    min = parseInt(minSlider.style.left);
+    console.log(min, max);
+  };
+
+  document.addEventListener('mousemove', toMove);
+
+  document.addEventListener('mouseup', function() {
+    document.removeEventListener('mousemove', toMove);
+  });
+});
+
+maxSlider.addEventListener('mousedown', function(ev) {
+  if (ev.target !== minSlider && ev.target !== maxSlider) {
+    return;
   }
 
-  document.addEventListener('mousemove', onMouseMove);
+  const toMove = function(move) {
+    let coordinatesX = move.clientX - ev.target.offsetWidth / 2;
 
-  ev.target.onmouseup = function() {
-    document.removeEventListener('mousemove', onMouseMove);
-    ev.target.onmouseup = null;
+    if (coordinatesX < min) {
+      coordinatesX = min;
+    }
+    ev.target.style.left = coordinatesX + 'px';
+    max = parseInt(maxSlider.style.left);
   };
+
+  document.addEventListener('mousemove', toMove);
+
+  document.addEventListener('mouseup', function() {
+    document.removeEventListener('mousemove', toMove);
+  });
 });

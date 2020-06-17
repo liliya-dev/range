@@ -4,6 +4,8 @@
 
 body {
   background: $c-gray;
+  position: relative;
+  padding-left: 30px;
 }
 
 .min,
@@ -20,6 +22,7 @@ body {
 }
 
 .max {
+  left: 150px;
   background-color: red;
 }
 
