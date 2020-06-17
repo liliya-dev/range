@@ -76,8 +76,10 @@ maxInput.addEventListener('change', function(ev) {
 
   if (maxInputValue < min) {
     maxInputValue = min;
+    maxInput.value = min;
   } else if (maxInputValue > 200) {
     maxInputValue = 200;
+    maxInput.value = 200;
   }
   maxSlider.style.left = maxInputValue + 'px';
   max = maxInputValue;
@@ -96,8 +98,10 @@ minInput.addEventListener('change', function(ev) {
 
   if (minInputValue > max) {
     minInputValue = max;
+    minInput.value = max;
   } else if (minInputValue < 0) {
     minInputValue = 0;
+    minInput.value = 0;
   }
   min = minInputValue;
   minSlider.style.left = minInputValue + 'px';
