@@ -1,10 +1,13 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-console */
 'use strict';
 
 const minSlider = document.querySelector('.min');
 const maxSlider = document.querySelector('.max');
-const minText = document.querySelector('.min_value');
-const maxText = document.querySelector('.max_value');
+const maxInput = document.querySelector('.max_input');
+const minInput = document.querySelector('.min_input');
+let maxInputValue;
+let minInputValue;
 
 let min = parseInt(window.getComputedStyle(minSlider, null).left);
 let max = parseInt(window.getComputedStyle(maxSlider, null).left);
@@ -21,14 +24,12 @@ minSlider.addEventListener('mousedown', function(ev) {
 
     if (coordinatesX > max) {
       coordinatesX = max;
-    }
-
-    if (coordinatesX < 0) {
+    } else if (coordinatesX < 0) {
       coordinatesX = 0;
     }
     ev.target.style.left = coordinatesX + 'px';
     min = parseInt(minSlider.style.left);
-    minText.textContent = coordinatesX + ' $';
+    minInput.value = coordinatesX + '';
   };
 
   document.addEventListener('mousemove', toMove);
@@ -47,14 +48,12 @@ maxSlider.addEventListener('mousedown', function(ev) {
 
     if (coordinatesX < min) {
       coordinatesX = min;
-    }
-
-    if (coordinatesX > 200) {
+    } else if (coordinatesX > 200) {
       coordinatesX = 200;
     }
     ev.target.style.left = coordinatesX + 'px';
     max = parseInt(maxSlider.style.left);
-    maxText.textContent = coordinatesX + ' $';
+    maxInput.value = coordinatesX + '';
   };
 
   document.addEventListener('mousemove', toMove);
@@ -62,4 +61,44 @@ maxSlider.addEventListener('mousedown', function(ev) {
   document.addEventListener('mouseup', function() {
     document.removeEventListener('mousemove', toMove);
   });
+});
+
+maxInput.addEventListener('change', function(ev) {
+  ev.preventDefault();
+  maxInputValue = Number(maxInput.value);
+
+  if (!maxInputValue) {
+    maxInput.value = '';
+    alert('put correct number');
+
+    return;
+  }
+
+  if (maxInputValue < min) {
+    maxInputValue = min;
+  } else if (maxInputValue > 200) {
+    maxInputValue = 200;
+  }
+  maxSlider.style.left = maxInputValue + 'px';
+  max = maxInputValue;
+});
+
+minInput.addEventListener('change', function(ev) {
+  ev.preventDefault();
+  minInputValue = Number(minInput.value);
+
+  if (!minInputValue) {
+    minInput.value = '';
+    alert('put correct number');
+
+    return;
+  }
+
+  if (minInputValue > max) {
+    minInputValue = max;
+  } else if (minInputValue < 0) {
+    minInputValue = 0;
+  }
+  min = minInputValue;
+  minSlider.style.left = minInputValue + 'px';
 });
