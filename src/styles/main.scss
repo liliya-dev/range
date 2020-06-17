@@ -5,7 +5,6 @@
 body {
   background: $c-gray;
   position: relative;
-  padding-left: 30px;
 }
 
 .min,
@@ -19,11 +18,13 @@ body {
 
 .min {
   background-color: green;
+  z-index: 2;
 }
 
 .max {
   left: 150px;
   background-color: red;
+  z-index: 2;
 }
 
 .ranger {
@@ -33,4 +34,17 @@ body {
 
 .ranger_value {
   margin-top: 40px;
+  display: flex;
+  width: 220px;
+  justify-content: space-between;
+}
+
+.scale {
+  width: 220px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: grey;
+  position: absolute;
+  top: 60px;
+  border: 1px solid black;
 }
