@@ -4,4 +4,52 @@
 
 body {
   background: $c-gray;
+  position: relative;
+}
+
+.min,
+.max {
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  border: 1px solid;
+  position: absolute;
+}
+
+.min {
+  background-color: green;
+  z-index: 2;
+}
+
+.max {
+  left: 150px;
+  background-color: red;
+  z-index: 2;
+}
+
+.ranger {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.ranger_value {
+  margin-top: 40px;
+  display: flex;
+  width: 220px;
+  justify-content: space-between;
+}
+
+.scale {
+  width: 220px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: grey;
+  position: absolute;
+  top: 10px;
+  border: 1px solid black;
+}
+
+.inputs {
+  position: absolute;
+  top: 130px;
 }
